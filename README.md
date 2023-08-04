@@ -53,4 +53,6 @@ Optional object passed as the second argument to the **create** method.
 `setSize(number)` - Up to a maximum size of **70**. The default is `5`.
 
 `setFlip(string)` - One of **horizontally** or **vertically** only.
+## Examples
+See some [examples](https://daveknights.github.io/cre8bit-examples/) of the library in use.
 
