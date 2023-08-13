@@ -55,5 +55,6 @@ Optional object passed as the second argument to the **create** method.
 `setFlip(string)` - One of **horizontally** or **vertically** only.
 ## Examples
 See some [examples](https://daveknights.github.io/cre8bit-examples/) of the library in use.
+
 Try out the library in the [Cre8bit Playground](https://daveknights.github.io/cre8bit-playground/).
 
