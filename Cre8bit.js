@@ -78,10 +78,11 @@ export default class Cre8bit {
     }
 
     #makeSVG(svg, characterBlocks) {
+        const newGraphic = document.createElementNS(this.#svgns, 'g');
         const newPath = document.createElementNS(this.#svgns, 'path');
 
+        newGraphic.setAttribute('fill', this.#colour);
         newPath.setAttribute('d', `M ${characterBlocks.points[0][0] * this.#size} ${characterBlocks.points[0][1] * this.#size} ${this.#createPath(characterBlocks.points)}`);
-        newPath.setAttribute('fill', this.#colour);
 
         if (characterBlocks.mask) {
             const newDefs = document.createElementNS(this.#svgns, 'defs');
@@ -114,7 +115,8 @@ export default class Cre8bit {
             newPath.setAttribute('mask', `url(#${maskId})`);
         }
 
-        svg.appendChild(newPath);
+        svg.appendChild(newGraphic);
+        newGraphic.appendChild(newPath);
 
         if (characterBlocks.extraPoints) {
             for (const [colour, pointsArrays] of Object.entries(characterBlocks.extraPoints)) {
@@ -123,7 +125,7 @@ export default class Cre8bit {
                     extraPath.setAttribute('d', `M ${points[0][0] * this.#size} ${points[0][1] * this.#size} ${this.#createPath(points)}`);
                     extraPath.setAttribute('fill', colour);
 
-                    svg.appendChild(extraPath);
+                    newGraphic.appendChild(extraPath);
                 }
             }
         }
@@ -186,9 +188,9 @@ export default class Cre8bit {
     setFlip(direction) {
         if (direction) {
             if (direction === 'horizontally') {
-                document.getElementById(this.#id).setAttribute('transform', 'scale(-1, 1)');
+                document.getElementById(this.#id).querySelector('g').setAttribute('transform', `scale(-1, 1) translate(-${this.#characterBlocks().columns * this.#size}, 0)`);
             } else if ((direction === 'vertically')) {
-                document.getElementById(this.#id).setAttribute('transform', 'scale(1, -1)');
+                document.getElementById(this.#id).querySelector('g').setAttribute('transform', `scale(1, -1) translate(0, -${this.#characterBlocks().rows * this.#size})`);
             } else {
                 console.log('Only horizontally or vertically allowed');
             }
