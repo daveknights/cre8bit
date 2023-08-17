@@ -40,7 +40,7 @@ Pass one as the first argument to the **create** method.
 ### Options
 Optional object passed as the second argument to the **create** method.
 
-`(string) colour` - Any valid CSS colour name or hex value e.g: `red` or `#c8b`. The default is `#333`.
+`(string) colour` - Any valid CSS colour name or hex value e.g: `red` or `#c8b`. Characters have a default colour.
 
 `(number) size` - Up to a maximum size of **70**. The default is `5`.
 
@@ -50,7 +50,7 @@ Optional object passed as the second argument to the **create** method.
 
 `(string) wrapperClass` - Use this to wrap the svg in a div with the class name provided.
 ### Helper methods
-`setColour(string)` - Any valid CSS colour name or hex value e.g: `red` or `#c8b`. The default is `#333`.
+`setColour(string)` - Any valid CSS colour name or hex value e.g: `red` or `#c8b`. Characters have a default colour.
 
 `setSize(number)` - Up to a maximum size of **70**. The default is `5`.
 
