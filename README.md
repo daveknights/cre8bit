@@ -35,6 +35,8 @@ Pass one as the first argument to the **create** method.
 - `'ufo'`
 - `'pacman'`
 - `'ghost'`
+- `'poke ball'`
+- `'mushroom'`
 ### Options
 Optional object passed as the second argument to the **create** method.
 
