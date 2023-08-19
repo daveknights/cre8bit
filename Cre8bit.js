@@ -2,10 +2,12 @@ export default class Cre8bit {
     #svgns = 'http://www.w3.org/2000/svg';
     #id;
     #characterName;
+    #useAnimatePoints = false;
     // default options
     #container = 'body';
     #colour = '#333';
     #size = 5;
+    #flip = null;
 
     #pacman = {
         rows: 13,
@@ -13,7 +15,9 @@ export default class Cre8bit {
         colour: 'yellow',
         points: [[4,0],[9,0],[9,1],[11,1],[11,2],[12,2],[12,4],[10,4],[10,5],[7,5],[7,6],[4,6],
                  [4,7],[7,7],[7,8],[10,8],[10,9],[12,9],[12,11],[11,11],[11,12],[9,12],[9,13],[4,13],
-                 [4,12],[2,12],[2,11],[1,11],[1,9],[0,9],[0,4],[1,4],[1,2],[2,2],[2,1],[4,1]]
+                 [4,12],[2,12],[2,11],[1,11],[1,9],[0,9],[0,4],[1,4],[1,2],[2,2],[2,1],[4,1]],
+        animatePoints: [[4,0],[8,0],[8,1],[10,1],[10,2],[11,2],[11,4],[12,4],[12,9],[11,9],[11,11],[10,11],[10,12],[8,12],[8,13],
+                        [4,13],[4,12],[2,12],[2,11],[1,11],[1,9],[0,9],[0,4],[1,4],[1,2],[2,2],[2,1],[4,1]]
     };
     #ghost = {
         rows: 14,
@@ -22,6 +26,9 @@ export default class Cre8bit {
         points: [[5,0],[9,0],[9,1],[11,1],[11,2],[12,2],[12,3],[13,3],[13,6],[14,6],[14,13],[13,13],[13,14],
                  [11,14],[11,13],[10,13],[10,12],[9,12],[9,13],[8,13],[8,14],[6,14],[6,13],[5,13],[5,12],[4,12],
                  [4,13],[3,13],[3,14],[1,14],[1,13],[0,13],[0,6],[1,6],[1,3],[2,3],[2,2],[3,2],[3,1],[5,1]],
+        animatePoints: [[5,0],[9,0],[9,1],[11,1],[11,2],[12,2],[12,3],[13,3],[13,6],[14,6],[14,14],[13,14],[13,13],
+                        [12,13],[12,12],[11,12],[11,13],[10,13],[10,14],[8,14],[8,12],[6,12],[6,14],[4,14],[4,13],[3,13],
+                        [3,12],[2,12],[2,13],[1,13],[1,14],[0,14],[0,6],[1,6],[1,3],[2,3],[2,2],[3,2],[3,1],[5,1]],
         extraPoints: {
             white: [[[4,3],[6,3],[6,4],[7,4],[7,5],[5,5],[5,7],[6,7],[6,8],[4,8],[4,7],[3,7],[3,4],[4,4]],
                     [[10,3],[12,3],[12,4],[13,4],[13,5],[11,5],[11,7],[12,7],[12,8],[10,8],[10,7],[9,7],[9,4],[10,4]]],
@@ -36,6 +43,9 @@ export default class Cre8bit {
         points: [[2,0],[3,0],[3,1],[4,1],[4,2],[7,2],[7,1],[8,1],[8,0],[9,0],[9,1],[8,1],[8,2],[9,2],[9,3],[10,3],
                  [10,4],[11,4],[11,7],[10,7],[10,5],[9,5],[9,7],[8,7],[8,8],[6,8],[6,7],[8,7],[8,6],[3,6],[3,7],[5,7],
                  [5,8],[3,8,],[3,7],[2,7],[2,5],[1,5],[1,7],[0,7],[0,4],[1,4],[1,3],[2,3],[2,2],[3,2],[3,1],[2,1]],
+        animatePoints: [[2,0],[3,0],[3,1],[4,1],[4,2],[7,2],[7,1],[8,1],[8,0],[9,0],[9,1],[8,1],[8,2],[9,2],[9,3],[10,3],[10,1],
+                        [11,1],[11,5],[10,5],[10,6],[9,6],[9,7],[10,7],[10,8],[9,8],[9,7],[8,7],[8,6],[3,6],[3,7],[2,7],[2,8],
+                        [1,8],[1,7],[2,7],[2,6],[1,6],[1,5],[0,5],[0,1],[1,1],[1,3],[2,3],[2,2],[3,2],[3,1],[2,1]],
         mask: [[3,3],[7,3]]
     };
     #ufo = {
@@ -121,9 +131,10 @@ export default class Cre8bit {
     #makeSVG(svg, characterBlocks) {
         const newGraphic = document.createElementNS(this.#svgns, 'g');
         const newPath = document.createElementNS(this.#svgns, 'path');
+        const blockPoints = this.#useAnimatePoints === false ? characterBlocks.points : characterBlocks.animatePoints;
 
         newGraphic.setAttribute('fill', this.#colour);
-        newPath.setAttribute('d', `M ${characterBlocks.points[0][0] * this.#size} ${characterBlocks.points[0][1] * this.#size} ${this.#createPath(characterBlocks.points)}`);
+        newPath.setAttribute('d', `M ${blockPoints[0][0] * this.#size} ${blockPoints[0][1] * this.#size} ${this.#createPath(blockPoints)}`);
 
         if (characterBlocks.mask) {
             const newDefs = document.createElementNS(this.#svgns, 'defs');
@@ -174,7 +185,7 @@ export default class Cre8bit {
         return svg;
     }
 
-    #editSVG() {
+    #editSVG(isAnimating = false) {
         const characterBlocks = this.#characterBlocks();
         const svg = document.getElementById(this.#id);
         svg.innerHTML = '';
@@ -182,7 +193,18 @@ export default class Cre8bit {
         svg.setAttributeNS(null, 'height', `${characterBlocks.rows * this.#size}`);
 
         this.#makeSVG(svg, characterBlocks);
+
+        if (isAnimating && this.#flip) {
+            this.setFlip(this.#flip);
+        }
     };
+
+    #animate() {
+        setInterval(() => {
+            this.#useAnimatePoints = !this.#useAnimatePoints;
+            this.#editSVG(true);
+        }, 500);
+    }
      /**
      * @param {string} className
      */
@@ -229,8 +251,10 @@ export default class Cre8bit {
     setFlip(direction) {
         if (direction) {
             if (direction === 'horizontally') {
+                this.#flip = direction;
                 document.getElementById(this.#id).querySelector('g').setAttribute('transform', `scale(-1, 1) translate(-${this.#characterBlocks().columns * this.#size}, 0)`);
             } else if ((direction === 'vertically')) {
+                this.#flip = direction;
                 document.getElementById(this.#id).querySelector('g').setAttribute('transform', `scale(1, -1) translate(0, -${this.#characterBlocks().rows * this.#size})`);
             } else {
                 console.log('Only horizontally or vertically allowed');
@@ -278,8 +302,13 @@ export default class Cre8bit {
 
         document.querySelector(this.#container).appendChild(child);
 
-        if (options && options.flip) {
-            this.setFlip(options.flip);
+        if (options) {
+            options.flip && this.setFlip(options.flip);
+
+            if (options.animate) {
+                this.#useAnimatePoints = true;
+                this.#animate();
+            }
         }
 
         return this;
