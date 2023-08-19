@@ -3,6 +3,7 @@ export default class Cre8bit {
     #id;
     #characterName;
     #useAnimatePoints = false;
+    #animateInterval;
     // default options
     #container = 'body';
     #colour = '#333';
@@ -197,13 +198,19 @@ export default class Cre8bit {
         if (isAnimating && this.#flip) {
             this.setFlip(this.#flip);
         }
-    };
+    }
 
     #animate() {
-        setInterval(() => {
+        this.#animateInterval = setInterval(() => {
             this.#useAnimatePoints = !this.#useAnimatePoints;
             this.#editSVG(true);
         }, 500);
+    }
+
+    stop() {
+        if (this.#animateInterval) {
+            clearInterval(this.#animateInterval);
+        }
     }
      /**
      * @param {string} className
