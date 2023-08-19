@@ -266,7 +266,7 @@ export default class Cre8bit {
 
     /**
      * @param {string} character - character
-     * @param {object} [options] - Optional string colour, number size, string flip, string parentClass, string wrapperClass
+     * @param {object} [options] - Optional string colour, number size, string flip, boolean animate, string parentClass, string wrapperClass
      */
     create(character, options) {
         this.#characterName = character.toLowerCase();
