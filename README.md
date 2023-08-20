@@ -30,7 +30,7 @@ pacman
   .setFlip('horizontally');
 
 // Animation option available for certain characters
-const ghost = new cre8bit.create('ghost', {animate: true});
+const ghost = new cre8bit().create('ghost', {animate: true});
 // Cancel animation
 ghost.stop();
 ```
