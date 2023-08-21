@@ -9,6 +9,7 @@ export default class Cre8bit {
     #colour = '#333';
     #size = 5;
     #flip = null;
+    #outline = false;
 
     #pacman = {
         rows: 13,
@@ -135,6 +136,8 @@ export default class Cre8bit {
         const blockPoints = this.#useAnimatePoints === false ? characterBlocks.points : characterBlocks.animatePoints;
 
         newGraphic.setAttribute('fill', this.#colour);
+        this.#outline && newGraphic.setAttribute('stroke', 'black');
+        this.#outline && newGraphic.setAttribute('stroke-width', 0.5);
         newPath.setAttribute('d', `M ${blockPoints[0][0] * this.#size} ${blockPoints[0][1] * this.#size} ${this.#createPath(blockPoints)}`);
 
         if (characterBlocks.mask) {
@@ -291,6 +294,7 @@ export default class Cre8bit {
             options.parentClass && (this.#parentClass = options.parentClass);
             options.colour && this.setColour(options.colour, true);
             options.size && this.setSize(options.size, true);
+            options.outline && (this.#outline = true);
         }
 
         svgElem.setAttributeNS(null, 'width', `${characterBlocks.columns * this.#size}`);
