@@ -28,6 +28,11 @@ pacman.setSize(20);
 pacman
   .setColour('#f9eb06')
   .setFlip('horizontally');
+
+// Animation option available for certain characters
+const ghost = new cre8bit().create('ghost', {animate: true});
+// Cancel animation
+ghost.stop();
 ```
 ### Character names
 Pass one as the first argument to the **create** method.
@@ -46,6 +51,8 @@ Optional object passed as the second argument to the **create** method.
 
 `(string) flip` - One of **horizontally** or **vertically** only.
 
+`(boolean) animate` - Only available currently with **space invader**, **pacman** & **ghost**. 
+
 `(string) parentClass` - Use this to add the svg to an existing DOM element by providing the class name. If none is provided they are added to the document body.
 
 `(string) wrapperClass` - Use this to wrap the svg in a div with the class name provided.
@@ -55,7 +62,9 @@ Optional object passed as the second argument to the **create** method.
 `setSize(number)` - Up to a maximum size of **70**. The default is `5`.
 
 `setFlip(string)` - One of **horizontally** or **vertically** only.
-## Examples
+
+`stop()` - Stop a currently animating character.
+## In action
 See some [examples](https://daveknights.github.io/cre8bit-examples/) of the library in use.
 
 Try out the library in the [Cre8bit Playground](https://daveknights.github.io/cre8bit-playground/).
