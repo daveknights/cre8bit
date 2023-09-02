@@ -3,7 +3,7 @@
 
 Cre8bit is a tiny Javascript library that adds 8bit style retro video game characters to your web page as svgs. These are created dynamically allowing for customisation.
 ## Setup
-Download Cre8bit.js and include in your project or scripts folder.
+Download [Cre8bit.js](https://github.com/daveknights/cre8bit/blob/main/Cre8bit.js) and include in your project or scripts folder.
 Then inside your own javascript file import the library and provide the path to it's location.
 ```javascript
 // Include at the top of your javascript file
