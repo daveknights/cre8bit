@@ -1,7 +1,7 @@
 # ![Cre8bit logo](/logo.png) Cre8bitJS
 ![8bit Space Invader, Ufo, Pacman and Ghost](/cre8bit.png)
 
-Crea8bit is a tiny Javascript library that adds 8bit style retro video game characters to your web page as svgs. These are created dynamically allowing for customisation.
+Cre8bit is a tiny Javascript library that adds 8bit style retro video game characters to your web page as svgs. These are created dynamically allowing for customisation.
 ## Setup
 Download Cre8bit.js and include in your project or scripts folder.
 Then inside your own javascript file import the library and provide the path to it's location.
@@ -56,6 +56,9 @@ Optional object passed as the second argument to the **create** method.
 `(string) parentClass` - Use this to add the svg to an existing DOM element by providing the class name. If none is provided they are added to the document body.
 
 `(string) wrapperClass` - Use this to wrap the svg in a div with the class name provided.
+
+`(boolean) outline` - Add an outline to all paths of a character. Useful if there is not enough contrast between the character colour and your page background, or the character (parts of the character) are the same colour as your page.
+
 ### Helper methods
 `setColour(string)` - Any valid CSS colour name or hex value e.g: `red` or `#c8b`. Characters have a default colour.
 
