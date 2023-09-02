@@ -131,13 +131,13 @@ export default class Cre8bit {
     }
 
     #makeSVG(svg, characterBlocks) {
-        const newGraphic = document.createElementNS(this.#svgns, 'g');
+        const newGroup = document.createElementNS(this.#svgns, 'g');
         const newPath = document.createElementNS(this.#svgns, 'path');
         const blockPoints = this.#useAnimatePoints === false ? characterBlocks.points : characterBlocks.animatePoints;
 
-        newGraphic.setAttribute('fill', this.#colour);
-        this.#outline && newGraphic.setAttribute('stroke', 'black');
-        this.#outline && newGraphic.setAttribute('stroke-width', 0.5);
+        newGroup.setAttribute('fill', this.#colour);
+        this.#outline && newGroup.setAttribute('stroke', 'black');
+        this.#outline && newGroup.setAttribute('stroke-width', 0.5);
         newPath.setAttribute('d', `M ${blockPoints[0][0] * this.#size} ${blockPoints[0][1] * this.#size} ${this.#createPath(blockPoints)}`);
 
         if (characterBlocks.mask) {
@@ -171,8 +171,8 @@ export default class Cre8bit {
             newPath.setAttribute('mask', `url(#${maskId})`);
         }
 
-        svg.appendChild(newGraphic);
-        newGraphic.appendChild(newPath);
+        svg.appendChild(newGroup);
+        newGroup.appendChild(newPath);
 
         if (characterBlocks.extraPoints) {
             for (const [colour, pointsArrays] of Object.entries(characterBlocks.extraPoints)) {
@@ -181,7 +181,7 @@ export default class Cre8bit {
                     extraPath.setAttribute('d', `M ${points[0][0] * this.#size} ${points[0][1] * this.#size} ${this.#createPath(points)}`);
                     extraPath.setAttribute('fill', colour);
 
-                    newGraphic.appendChild(extraPath);
+                    newGroup.appendChild(extraPath);
                 }
             }
         }
