@@ -23,7 +23,6 @@ new cre8bit().create('pacman', {size: 12, parentClass: 'container'});
 // Some helper methods are available if you need to modify the svg after creation
 const pacman = new cre8bit().create('pacman');
 pacman.setSize(20);
-
 // Methods can be chained
 pacman
   .setColour('#f9eb06')
