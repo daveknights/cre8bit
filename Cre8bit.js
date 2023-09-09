@@ -1,9 +1,9 @@
 export default class Cre8bit {
     #svgns = 'http://www.w3.org/2000/svg';
-    #id;
-    #characterName;
+    #id = null;
+    #characterName = '';
     #useAnimatePoints = false;
-    #animateInterval;
+    #animateInterval = 0;
     // default options
     #container = 'body';
     #colour = '#333';
@@ -220,7 +220,7 @@ export default class Cre8bit {
      */
     set #parentClass(className) {
         this.#container = `.${className}`;
-    };
+    }
     /**
      * @param {string} colour
      * @param {boolean} [option]
