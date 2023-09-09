@@ -118,16 +118,16 @@ export default class Cre8bit {
     }
 
     #createPath(points) {
-        let path = '';
+        let makePath = '';
         for (const [i, [x,y]] of points.entries()) {
             if (i === 0) {
                 continue;
             }
-            path += `L ${x * this.#size} ${y * this.#size} `;
+            makePath += `L ${x * this.#size} ${y * this.#size} `;
         }
-        path += 'z';
+        makePath += 'z';
 
-        return path;
+        return makePath;
     }
 
     #makeSVG(svg, characterBlocks) {
@@ -190,13 +190,13 @@ export default class Cre8bit {
     }
 
     #editSVG(isAnimating = false) {
-        const characterBlocks = this.#characterBlocks();
-        const svg = document.getElementById(this.#id);
-        svg.innerHTML = '';
-        svg.setAttributeNS(null, 'width', `${characterBlocks.columns * this.#size}`);
-        svg.setAttributeNS(null, 'height', `${characterBlocks.rows * this.#size}`);
+        const charBlocks = this.#characterBlocks();
+        const svgEdit = document.getElementById(this.#id);
+        svgEdit.innerHTML = '';
+        svgEdit.setAttributeNS(null, 'width', `${charBlocks.columns * this.#size}`);
+        svgEdit.setAttributeNS(null, 'height', `${charBlocks.rows * this.#size}`);
 
-        this.#makeSVG(svg, characterBlocks);
+        this.#makeSVG(svgEdit, charBlocks);
 
         if (isAnimating && this.#flip) {
             this.setFlip(this.#flip);
