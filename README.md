@@ -9,7 +9,14 @@ Then inside your own javascript file import the library and provide the path to 
 // Include at the top of your javascript file
 import cre8bit from "./Cre8bit.js";
 ```
+```javascript
+// Alternatively use the minified* version
+import cre8bit from "./Cre8bit.min.js";
+```
 Set your own javascript file to `type="module"`.
+
+_* At the time of writing a minifier that could handle private properties & methods could not be found,
+so a [custom node minifying script](https://gist.github.com/daveknights/7e6124184c5d49f8498d6fa91fb21181) was created, shaving nearly 40% (5kb) off the unminified version._
 ## Usage
 ```javascript
 // The most basic usage of the library
