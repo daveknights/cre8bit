@@ -1,7 +1,7 @@
 # ![Cre8bit logo](/logo.png) Cre8bitJS
 ![8bit Space Invader, Ufo, Pacman and Ghost](/cre8bit.png)
 
-Cre8bitJS is a tiny Javascript library that adds 8bit style retro video game characters to your web page as svgs. These are created dynamically allowing for customisation.
+Cre8bitJS is a lightweight Javascript library that adds 8bit style retro video game characters to your web page as svgs. These are created dynamically allowing for customisation.
 ## Setup
 Download [Cre8bit.js](https://github.com/daveknights/cre8bit/blob/main/Cre8bit.js) and include in your project or scripts folder.
 Then inside your own javascript file import the library and provide the path to it's location.
@@ -9,7 +9,7 @@ Then inside your own javascript file import the library and provide the path to 
 // Include at the top of your javascript file
 import cre8bit from "./Cre8bit.js";
 ```
-A slighlty [ minified version](https://github.com/daveknights/cre8bit/blob/main/Cre8bit.min.js)* is also available.
+Alternatively, a slighlty [ minified version](https://github.com/daveknights/cre8bit/blob/main/Cre8bit.min.js)* is also available.
 ```javascript
 // Include at the top of your javascript file
 import cre8bit from "./Cre8bit.min.js";
