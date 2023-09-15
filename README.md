@@ -3,18 +3,20 @@
 
 Cre8bitJS is a lightweight Javascript library that adds 8bit style retro video game characters to your web page as svgs. These are created dynamically allowing for customisation.
 ## Setup
-Download [Cre8bit.js](https://github.com/daveknights/cre8bit/blob/main/Cre8bit.js) and include in your project or scripts folder.
-Then inside your own javascript file import the library and provide the path to it's location.
-```javascript
-// Include at the top of your javascript file
-import cre8bit from "./cre8bit.js";
+Via npm for use with a bundler.
 ```
-Alternatively, a slighlty [ minified version](https://github.com/daveknights/cre8bit/blob/main/Cre8bit.min.js)* is also available.
-```javascript
-// Include at the top of your javascript file
-import cre8bit from "./cre8bit.min.js";
+$ npm install cre8bitjs --save
 ```
-Set your own javascript file to `type="module"`.
+```javascript
+import cre8bit from 'cre8bitjs';
+```
+**Or**
+
+Download and include the [unminified](https://github.com/daveknights/cre8bit/blob/main/Cre8bit.js) or [minified](https://github.com/daveknights/cre8bit/blob/main/Cre8bit.min.js)* version in your project (or scripts folder) and specify the path.
+```javascript
+import cre8bit from "./cre8bit.js"; // "./cre8bit.min.js"; (For the minified version)
+```
+And set your own javascript file to `type="module"`.
 
 _* At the time of writing, a minifier that could handle private properties & methods could not be found,
 so a [custom node minifying script](https://gist.github.com/daveknights/7e6124184c5d49f8498d6fa91fb21181) was created, shaving nearly 40% (5kb) off the unminified version._
