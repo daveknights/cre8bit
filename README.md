@@ -7,12 +7,12 @@ Download [Cre8bit.js](https://github.com/daveknights/cre8bit/blob/main/Cre8bit.j
 Then inside your own javascript file import the library and provide the path to it's location.
 ```javascript
 // Include at the top of your javascript file
-import cre8bit from "./Cre8bit.js";
+import cre8bit from "./cre8bit.js";
 ```
 Alternatively, a slighlty [ minified version](https://github.com/daveknights/cre8bit/blob/main/Cre8bit.min.js)* is also available.
 ```javascript
 // Include at the top of your javascript file
-import cre8bit from "./Cre8bit.min.js";
+import cre8bit from "./cre8bit.min.js";
 ```
 Set your own javascript file to `type="module"`.
 
