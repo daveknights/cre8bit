@@ -189,7 +189,7 @@ export default class Cre8bit {
         return svg;
     }
 
-    #editSVG(isAnimating = false) {
+    #editSVG() {
         const charBlocks = this.#characterBlocks();
         const svgEdit = document.getElementById(this.#id);
         svgEdit.innerHTML = '';
@@ -198,15 +198,13 @@ export default class Cre8bit {
 
         this.#makeSVG(svgEdit, charBlocks);
 
-        if (isAnimating && this.#flip) {
-            this.setFlip(this.#flip);
-        }
+        this.#flip && this.setFlip(this.#flip);
     }
 
     #animate() {
         this.#animateInterval = setInterval(() => {
             this.#useAnimatePoints = !this.#useAnimatePoints;
-            this.#editSVG(true);
+            this.#editSVG();
         }, 500);
     }
 
