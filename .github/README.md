@@ -12,7 +12,7 @@ import cre8bit from 'cre8bitjs';
 ```
 **Or**
 
-Download and include the [unminified](https://github.com/daveknights/cre8bit/blob/main/Cre8bit.js) or [minified](https://github.com/daveknights/cre8bit/blob/main/Cre8bit.min.js)* version in your project (or scripts folder) and specify the path.
+Download and include the [unminified](https://github.com/daveknights/cre8bit/blob/main/Cre8bit.js) or [minified](https://github.com/daveknights/cre8bit-minified/blob/main/cre8bit.min.js)* version in your project (or scripts folder) and specify the path.
 ```javascript
 import cre8bit from "./cre8bit.js"; // "./cre8bit.min.js"; (For the minified version)
 ```
