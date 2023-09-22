@@ -41,7 +41,9 @@ Pass one as the first argument to the **create** method.
 - `'pacman'`
 - `'ghost'`
 - `'poke ball'`
+- `'mario'`
 - `'mushroom'`
+- `'kirby'`
 ### Options
 Optional object passed as the second argument to the **create** method.
 
