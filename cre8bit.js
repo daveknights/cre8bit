@@ -9,7 +9,7 @@ export default class Cre8bit {
     #colour = '#333';
     #size = 5;
     #flip = null;
-    #outline = false;
+    #outlineWidth = 0;
 
     #characters = {
         pacman: {
@@ -166,7 +166,7 @@ export default class Cre8bit {
             if (i === 0) {
                 continue;
             }
-            makePath += `L ${x * this.#size} ${y * this.#size} `;
+            makePath += `L ${(x * this.#size) + this.#outlineWidth} ${(y * this.#size) + this.#outlineWidth} `;
         }
         makePath += 'z';
 
@@ -183,8 +183,10 @@ export default class Cre8bit {
         let newPath = null;
 
         newGroup.setAttribute('fill', this.#colour);
-        this.#outline && newGroup.setAttribute('stroke', 'black');
-        this.#outline && newGroup.setAttribute('stroke-width', 0.5);
+        if(this.#outlineWidth === 0.5) {
+            newGroup.setAttribute('stroke', 'black');
+            newGroup.setAttribute('stroke-width', this.#outlineWidth);
+        }
 
         if (charPath.mask) {
             const newDefs = this.#createSvgElement(this.#svgns, 'defs');
@@ -195,16 +197,16 @@ export default class Cre8bit {
 
             wholeMask.setAttribute('x', 0);
             wholeMask.setAttribute('y', 0);
-            wholeMask.setAttribute('width', this.#size * charPath.columns);
-            wholeMask.setAttribute('height', this.#size * charPath.rows);
+            wholeMask.setAttribute('width', (this.#size * charPath.columns) + (this.#outlineWidth * 2));
+            wholeMask.setAttribute('height', (this.#size * charPath.rows) + (this.#outlineWidth * 2));
             wholeMask.setAttribute('fill', 'white');
 
             newMask.appendChild(wholeMask);
 
             for (const [x,y] of charPath.mask.values()) {
                 const newBlock = this.#createSvgElement(this.#svgns, 'rect');
-                newBlock.setAttribute('x', x * this.#size);
-                newBlock.setAttribute('y', y * this.#size);
+                newBlock.setAttribute('x', (x * this.#size) + this.#outlineWidth);
+                newBlock.setAttribute('y', (y * this.#size) + this.#outlineWidth);
                 newBlock.setAttribute('width', this.#size);
                 newBlock.setAttribute('height', this.#size);
                 newBlock.setAttribute('fill', 'black');
@@ -219,7 +221,7 @@ export default class Cre8bit {
 
         for (const points of pathPoints) {
             newPath = this.#createSvgElement(this.#svgns, 'path');
-            newPath.setAttribute('d', `M ${points[0][0] * this.#size} ${points[0][1] * this.#size} ${this.#createPath(points)}`);
+            newPath.setAttribute('d', `M ${(points[0][0] * this.#size) + this.#outlineWidth} ${(points[0][1] * this.#size) + this.#outlineWidth} ${this.#createPath(points)}`);
             newGroup.appendChild(newPath);
         }
 
@@ -229,7 +231,7 @@ export default class Cre8bit {
             for (const [colour, pointsArrays] of Object.entries(charPath.extraPoints)) {
                 for (const points of pointsArrays) {
                     const extraPath = this.#createSvgElement(this.#svgns, 'path');
-                    extraPath.setAttribute('d', `M ${points[0][0] * this.#size} ${points[0][1] * this.#size} ${this.#createPath(points)}`);
+                    extraPath.setAttribute('d', `M ${(points[0][0] * this.#size) + this.#outlineWidth} ${(points[0][1] * this.#size) + this.#outlineWidth} ${this.#createPath(points)}`);
                     extraPath.setAttribute('fill', colour);
 
                     newGroup.appendChild(extraPath);
@@ -244,8 +246,8 @@ export default class Cre8bit {
         const charPath = this.#characterPath();
         const svgEdit = document.getElementById(this.#id);
         svgEdit.innerHTML = '';
-        svgEdit.setAttributeNS(null, 'width', `${charPath.columns * this.#size}`);
-        svgEdit.setAttributeNS(null, 'height', `${charPath.rows * this.#size}`);
+        svgEdit.setAttributeNS(null, 'width', `${(charPath.columns * this.#size) + (this.#outlineWidth * 2)}`);
+        svgEdit.setAttributeNS(null, 'height', `${(charPath.rows * this.#size) + (this.#outlineWidth * 2)}`);
 
         this.#makeSVG(svgEdit, charPath);
 
@@ -311,10 +313,10 @@ export default class Cre8bit {
         if (direction) {
             if (direction === 'horizontally') {
                 this.#flip = direction;
-                document.getElementById(this.#id).querySelector('g').setAttribute('transform', `scale(-1, 1) translate(-${this.#characterPath().columns * this.#size}, 0)`);
+                document.getElementById(this.#id).querySelector('g').setAttribute('transform', `scale(-1, 1) translate(-${(this.#characterPath().columns * this.#size) + (this.#outlineWidth * 2)}, 0)`);
             } else if ((direction === 'vertically')) {
                 this.#flip = direction;
-                document.getElementById(this.#id).querySelector('g').setAttribute('transform', `scale(1, -1) translate(0, -${this.#characterPath().rows * this.#size})`);
+                document.getElementById(this.#id).querySelector('g').setAttribute('transform', `scale(1, -1) translate(0, -${(this.#characterPath().rows * this.#size) + (this.#outlineWidth * 2)})`);
             } else {
                 console.log('Only horizontally or vertically allowed');
             }
@@ -343,11 +345,11 @@ export default class Cre8bit {
             options.parentClass && (this.#parentClass = options.parentClass);
             options.colour && this.setColour(options.colour, true);
             options.size && this.setSize(options.size, true);
-            options.outline && (this.#outline = true);
+            options.outline && (this.#outlineWidth = 0.5);
         }
 
-        svgElem.setAttributeNS(null, 'width', `${newCharPath.columns * this.#size}`);
-        svgElem.setAttributeNS(null, 'height', `${newCharPath.rows * this.#size}`);
+        svgElem.setAttributeNS(null, 'width', `${(newCharPath.columns * this.#size) + (this.#outlineWidth * 2)}`);
+        svgElem.setAttributeNS(null, 'height', `${(newCharPath.rows * this.#size) + (this.#outlineWidth * 2)}`);
 
         shape = this.#makeSVG(svgElem, newCharPath);
 
