@@ -2,6 +2,11 @@
 ![8bit Space Invader, Ufo, Pacman and Ghost](/.github/cre8bitjs.gif)
 
 Cre8bitJS is a lightweight Javascript library that adds 8bit style retro video game characters to your web page as svgs. These are created dynamically allowing for customisation.
+
+[![npm version](https://badge.fury.io/js/cre8bitjs.svg)](https://badge.fury.io/js/cre8bitjs)
+![GitHub](https://img.shields.io/github/license/daveknights/cre8bit)
+![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/daveknights/cre8bit)
+
 ## Setup
 Via npm for use with a bundler.
 ```
