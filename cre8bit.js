@@ -141,18 +141,16 @@ export default class Cre8bit {
     }
 
     #characterPath() {
-        let char = this.#characterName;
+        let charName = this.#characterName;
 
-        switch (this.#characterName) {
+        switch (charName) {
             case 'space invader':
-                char = 'spaceInvader';
-                return this.#characters[char];
+                return this.#characters['spaceInvader'];
             case 'poke ball':
-                char = 'pokeBall';
-                return this.#characters[char];
+                return this.#characters['pokeBall'];
             default:
-                if (char in this.#characters) {
-                    return this.#characters[char];
+                if (charName in this.#characters) {
+                    return this.#characters[charName];
                 } else {
                     console.log('Character not available');
                 }
@@ -354,7 +352,7 @@ export default class Cre8bit {
         shape = this.#makeSVG(svgElem, newCharPath);
 
         if (options && options.wrapperClass) {
-            child = this.#createSvgElement('div');
+            child = document.createElement('div');
             child.className = options.wrapperClass;
 
             child.appendChild(shape);
