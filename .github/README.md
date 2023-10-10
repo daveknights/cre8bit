@@ -41,7 +41,7 @@ pacman.setSize(20);
 // Methods can be chained
 pacman
   .setColour('#f9eb06')
-  .setFlip('horizontally');
+  .setFlip(true);
 
 // Animation option available for certain characters
 const ghost = new cre8bit().create('ghost', {animate: true});
@@ -65,9 +65,9 @@ Optional object passed as the second argument to the **create** method.
 
 `(number) size` - Up to a maximum size of **70**. The default is `5`.
 
-`(string) flip` - One of **horizontally** or **vertically** only.
+`(boolean) flip` - The default is **false**.
 
-`(boolean) animate` - Only available currently with **space invader**, **pacman** & **ghost**. 
+`(boolean) animate` - Only available currently with **space invader**, **pacman** & **ghost**.
 
 `(string) parentClass` - Use this to add the svg to an existing DOM element by providing the class name. If none is provided they are added to the document body.
 
@@ -80,7 +80,7 @@ Optional object passed as the second argument to the **create** method.
 
 `setSize(number)` - Up to a maximum size of **70**. The default is `5`.
 
-`setFlip(string)` - One of **horizontally** or **vertically** only.
+`setFlip(boolean)` - The default is **false**.
 
 `stop()` - Stop a currently animating character.
 ## In action
