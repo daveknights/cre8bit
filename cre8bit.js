@@ -8,7 +8,7 @@ export default class Cre8bit {
     #container = 'body';
     #colour = '#333';
     #size = 5;
-    #flip = null;
+    #flip = false;
     #outlineWidth = 0;
 
     #characters = {
@@ -305,27 +305,23 @@ export default class Cre8bit {
         return this;
     }
     /**
-     * @param {string} direction - horizontally | vertically
+     * @param {boolean} shouldFlip
      */
-    setFlip(direction) {
-        if (direction) {
-            if (direction === 'horizontally') {
-                this.#flip = direction;
-                document.getElementById(this.#id).querySelector('g').setAttribute('transform', `scale(-1, 1) translate(-${(this.#characterPath().columns * this.#size) + (this.#outlineWidth * 2)}, 0)`);
-            } else if ((direction === 'vertically')) {
-                this.#flip = direction;
-                document.getElementById(this.#id).querySelector('g').setAttribute('transform', `scale(1, -1) translate(0, -${(this.#characterPath().rows * this.#size) + (this.#outlineWidth * 2)})`);
-            } else {
-                console.log('Only horizontally or vertically allowed');
-            }
+    setFlip(shouldFlip) {
+        if (shouldFlip) {
+            document.getElementById(this.#id).querySelector('g').setAttribute('transform', `scale(-1, 1) translate(-${(this.#characterPath().columns * this.#size) + (this.#outlineWidth * 2)}, 0)`);
+        } else {
+            document.getElementById(this.#id).querySelector('g').removeAttribute('transform');
         }
+
+        this.#flip = shouldFlip;
 
         return this;
     }
 
     /**
      * @param {string} character - character
-     * @param {object} [options] - Optional string colour, number size, string flip, boolean animate, string parentClass, string wrapperClass, boolean outline
+     * @param {object} [options] - Optional string colour, number size, boolean flip, boolean animate, string parentClass, string wrapperClass, boolean outline
      */
     create(character, options) {
         this.#characterName = character.toLowerCase();
