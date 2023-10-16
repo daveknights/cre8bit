@@ -8,8 +8,9 @@ export default class Cre8bit {
     #container = 'body';
     #colour = '#333';
     #size = 5;
-    #flip = false;
+    #flip = null;
     #outlineWidth = 0;
+    #reflection = false;
 
     #characters = {
         pacman: {
@@ -73,6 +74,30 @@ export default class Cre8bit {
                 black: [[[0,5],[1,5],[1,6],[2,6],[2,7],[4,7],[4,6],[5,6],[5,5],[8,5],[8,6],[9,6],[9,7],[11,7],[11,6],
                         [12,6],[12,5],[13,5],[13,6],[12,6],[12,7],[11,7],[11,8],[8,8],[8,6],[5,6],[5,8],[8,8],[8,9],
                         [5,9],[5,8],[2,8],[2,7],[1,7],[1,6],[0,6]]]
+            }
+        },
+        pikachu: {
+            rows: 19,
+            columns: 17,
+            colour: 'yellow',
+            points: [[[4,1],[5,1],[5,2],[5,4],[6,4],[6,5],[8,5],[8,4],[10,4],[10,8],[11,8],[11,10],[12,10],[12,11],[10,11],[10,12],[12,12],
+                      [12,13],[11,13],[11,14],[12,14],[12,16],[11,16],[11,17],[10,17],[10,18],[11,18],[11,19],[8,19],[8,18],[9,18],[9,17],
+                      [6,17],[6,16],[4,16],[4,15],[3,15],[3,16],[2,16],[2,15],[3,15],[3,13],[1,13],[1,12],[2,12],[2,10],[1,10],[1,9],[0,9],
+                      [0,8],[1,8],[1,5],[2,5],[2,4],[3,4],[3,2],[4,2]],
+                     [[15,0],[16,0],[16,1],[17,1],[17,3],[16,3],[16,4],[15,4],[15,5],[14,5],[14,6],[15,6],[15,8],[13,8],[13,6],[12,6],
+                      [12,4],[13,4],[13,2],[14,2],[14,1],[15,1]]],
+            extraPoints: {
+                black: [[[4,0],[5,0],[5,1],[4,1]],
+                        [[10,3],[12,3],[12,4],[11,4],[11,5],[10,5]],
+                        [[0,7],[1,7],[1,8],[0,8]],
+                        [[5,8],[6,8],[6,10],[4,10],[4,9],[5,9]],
+                        [[8,13],[9,13],[9,14],[8,14],[8,15],[9,15],[9,16],[8,16],[8,15],[7,15],[7,14],[8,14]]],
+                white: [[[0,6],[1,6],[1,7],[0,7]],
+                        [[4,8],[5,8],[5,9],[4,9]]],
+                red: [[[6,10],[8,10],[8,11],[7,11],[7,12],[6,12]]],
+                sienna: [[[13,8],[14,8],[14,9],[13,9],[13,10],[12,10],[12,9],[13,9]],
+                        [[10,11],[12,11],[12,12],[10,12]],
+                        [[11,13],[12,13],[12,14],[11,14]]]
             }
         },
         mushroom: {
@@ -237,15 +262,75 @@ export default class Cre8bit {
             }
         }
 
+        if (this.#reflection) {
+            const reflection = newGroup.cloneNode(true);
+            const rNewDefs = this.#createSvgElement(this.#svgns, 'defs');
+            const rNewMask = this.#createSvgElement(this.#svgns, 'mask');
+            const rRect = this.#createSvgElement(this.#svgns, 'rect');
+            const rlinearGrad = this.#createSvgElement(this.#svgns, 'linearGradient');
+            const rStopStart = this.#createSvgElement(this.#svgns, 'stop');
+            const rStopEnd = this.#createSvgElement(this.#svgns, 'stop');
+
+            rNewMask.setAttribute('id', `${this.#id}-ref-mask`);
+            rRect.setAttribute('x', 0);
+            rRect.setAttribute('y', 0);
+            rRect.setAttribute('width', (this.#size * charPath.columns) + (this.#outlineWidth * 2));
+            rRect.setAttribute('height', (this.#size * charPath.rows) + (this.#outlineWidth * 2));
+            rRect.setAttribute('fill', `url(#${this.#id}-grad-mask)`);
+
+            rlinearGrad.setAttribute('id', `${this.#id}-grad-mask`);
+            rlinearGrad.setAttribute('x1', '0');
+            rlinearGrad.setAttribute('x2', '0');
+            rlinearGrad.setAttribute('y1', '0');
+            rlinearGrad.setAttribute('y2', '1');
+
+            rStopStart.setAttribute('offset', '0');
+            rStopStart.setAttribute('stop-color', 'white');
+            rStopEnd.setAttribute('offset', '1');
+            rStopEnd.setAttribute('stop-color', 'white');
+
+            let translateVal = `0,-${((this.#characterPath().rows * this.#size) + (this.#outlineWidth * 2)) * 2}`;
+            let scaleVal = '1,-1';
+            let startVal = '0';
+            let endVal = '0.3';
+
+            if (this.#flip) {
+                // if (this.#flip === 'horizontally') {
+                    translateVal = `-${((this.#characterPath().columns * this.#size) + (this.#outlineWidth * 2))},-${((this.#characterPath().rows * this.#size) + (this.#outlineWidth * 2)) * 2}`;
+                    scaleVal = '-1,-1';
+                // } else {
+                //     translateVal = `0,${(this.#characterPath().rows * this.#size) + (this.#outlineWidth * 2)}`;
+                //     scaleVal = '1,1';
+                //     startVal =  '0.3';
+                //     endVal = '0';
+                // }
+            }
+
+            rStopStart.setAttribute('stop-opacity', startVal);
+            rStopEnd.setAttribute('stop-opacity', endVal);
+
+            reflection.setAttribute('transform', `scale(${scaleVal}) translate(${translateVal})`);
+            reflection.setAttribute('mask', `url(#${this.#id}-ref-mask)`);
+
+            rNewMask.appendChild(rRect);
+            rlinearGrad.appendChild(rStopStart);
+            rlinearGrad.appendChild(rStopEnd);
+            rNewDefs.appendChild(rlinearGrad);
+            rNewDefs.appendChild(rNewMask);
+            svg.appendChild(rNewDefs);
+            svg.appendChild(reflection);
+        }
+
         return svg;
     }
 
     #editSVG() {
         const charPath = this.#characterPath();
         const svgEdit = document.getElementById(this.#id);
+        const editMultiplyer = this.#reflection ? 2 : 1;
         svgEdit.innerHTML = '';
         svgEdit.setAttributeNS(null, 'width', `${(charPath.columns * this.#size) + (this.#outlineWidth * 2)}`);
-        svgEdit.setAttributeNS(null, 'height', `${(charPath.rows * this.#size) + (this.#outlineWidth * 2)}`);
+        svgEdit.setAttributeNS(null, 'height', `${((charPath.rows * this.#size) + (this.#outlineWidth * 2)) * editMultiplyer}`);
 
         this.#makeSVG(svgEdit, charPath);
 
@@ -305,23 +390,33 @@ export default class Cre8bit {
         return this;
     }
     /**
-     * @param {boolean} shouldFlip
+     * @param {string} direction - horizontally | vertically
      */
-    setFlip(shouldFlip) {
-        if (shouldFlip) {
-            document.getElementById(this.#id).querySelector('g').setAttribute('transform', `scale(-1, 1) translate(-${(this.#characterPath().columns * this.#size) + (this.#outlineWidth * 2)}, 0)`);
-        } else {
-            document.getElementById(this.#id).querySelector('g').removeAttribute('transform');
-        }
-
-        this.#flip = shouldFlip;
+    setFlip(direction) {
+        // if (direction) {
+            // if (direction === 'horizontally') {
+                // this.#flip = direction;
+                document.getElementById(this.#id).querySelector('g').setAttribute('transform', `scale(-1, 1) translate(-${(this.#characterPath().columns * this.#size) + (this.#outlineWidth * 2)}, 0)`);
+                if (this.#reflection) {
+                    document.getElementById(this.#id).querySelector('g:last-of-type').setAttribute('transform', `scale(-1,-1) translate(-${(this.#characterPath().columns * this.#size) + (this.#outlineWidth * 2)}, -${((this.#characterPath().rows * this.#size) + (this.#outlineWidth * 2)) * 2})`);
+                }
+            // } else if ((direction === 'vertically')) {
+            //     // this.#flip = direction;
+            //     document.getElementById(this.#id).querySelector('g').setAttribute('transform', `scale(1, -1) translate(0, -${(this.#characterPath().rows * this.#size) + (this.#outlineWidth * 2)})`);
+            //     if (this.#reflection) {
+            //         document.getElementById(this.#id).querySelector('g:last-of-type').setAttribute('transform', `scale(1,1) translate(0, ${(this.#characterPath().rows * this.#size) + (this.#outlineWidth * 2)})`);
+            //     }
+            // } else {
+            //     console.log('Only horizontally or vertically allowed');
+            // }
+        // }
 
         return this;
     }
 
     /**
      * @param {string} character - character
-     * @param {object} [options] - Optional string colour, number size, boolean flip, boolean animate, string parentClass, string wrapperClass, boolean outline
+     * @param {object} [options] - Optional string colour, number size, string flip, boolean animate, string parentClass, string wrapperClass, boolean outline
      */
     create(character, options) {
         this.#characterName = character.toLowerCase();
@@ -336,14 +431,16 @@ export default class Cre8bit {
         svgElem.classList.add('cre8bit', this.#characterName.replace(' ', '-'));
 
         if (options) {
+            options.flip && (this.#flip = options.flip);
             options.parentClass && (this.#parentClass = options.parentClass);
             options.colour && this.setColour(options.colour, true);
             options.size && this.setSize(options.size, true);
             options.outline && (this.#outlineWidth = 0.5);
+            options.reflection && (this.#reflection = true);
         }
-
+        const multiplyer = options && options.reflection ? 2 : 1;
         svgElem.setAttributeNS(null, 'width', `${(newCharPath.columns * this.#size) + (this.#outlineWidth * 2)}`);
-        svgElem.setAttributeNS(null, 'height', `${(newCharPath.rows * this.#size) + (this.#outlineWidth * 2)}`);
+        svgElem.setAttributeNS(null, 'height', `${((newCharPath.rows * this.#size) + (this.#outlineWidth * 2)) * multiplyer}`);
 
         shape = this.#makeSVG(svgElem, newCharPath);
 

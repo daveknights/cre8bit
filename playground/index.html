@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Playground | Cre8bitJS</title>
+    <meta name="description" content="A fun Javascript library for adding 8-bit style retro video game characters to your web page.">
+    <link rel="icon" type="image/png" href="/images/favicon.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Play:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/styles.css">
+    <link rel="stylesheet" href="/playground/style.css">
+</head>
+<body class="flex column">
+    <nav class="flex">
+        <div class="container">
+            <a href="/">
+                <img class="logo" src="/images/cre8bit-logo.png" alt="cre8bitjs" height="31" width="31">
+            </a>
+            <img class="menu-icon" src="/images/menu-icon.png" alt="Menu" height="30" width="30">
+            <ul class="nav-links flex">
+                <li><a href="https://github.com/daveknights/cre8bit/blob/main/.github/README.md" target="_blank">Documentation</a></li>
+                <li><a href="/examples">Examples</a></li>
+                <li><a href="/playground"><span class="active">[</span>Playground<span class="active">]</span></a></li>
+                <li><a class="btn" href="https://www.npmjs.com/package/cre8bitjs" target="_blank">Install v2.0.0</a></li>
+            </ul>
+        </div>
+    </nav>
+    <header>
+        <h1>Cre8bitJS playground</h1>
+    </header>
+    <main class="playground">
+        <div class="container">
+            <div class="row">
+                <div class="character-area flex">
+                    <form id="change-bg" class="flex">
+                        <label>&#9998;</label>
+                        <input type="color" id="bg-colour" value="#eeeeee">
+                    </form>
+                    <div class="character-container">
+                        <strong class="placeholder-text">Choose a character</strong>
+                    </div>
+                </div>
+                <form id="character-options">
+                    <div class="form-field flex">
+                        <label for="character">Character:</label>
+                        <select id="character">
+                            <option value="">Select character</option>
+                            <option value="space invader">Space Invader</option>
+                            <option value="ufo">UFO</option>
+                            <option value="pacman">Pacman</option>
+                            <option value="ghost">Ghost</option>
+                            <option value="poke ball">Poke Ball</option>
+                            <option value="mario">Mario</option>
+                            <option value="mushroom">Mushroom</option>
+                            <option value="kirby">Kirby</option>
+                        </select>
+                    </div>
+                    <div class="form-field flex">
+                        <label for="colour">Colour:</label>
+                        <input id="colour" type="color" value="#333333" disabled>
+                    </div>
+                    <div class="form-field flex">
+                        <label for="size">Size:</label>
+                        <input id="size" type="range" min="1" max="21" value="10" disabled>
+                    </div>
+                    <div class="form-field flex radios">
+                        <p>Flip:</p>
+                        <div class="radio-fields flex">
+                            <div class="radio-field">
+                                <label for="flip-true">True:</label>
+                                <input type="radio" name="flip" id="flip-true" value="true" disabled>
+                            </div>
+                            <div class="radio-field">
+                                <label for="flip-false">False:</label>
+                                <input type="radio" name="flip" id="flip-false" value="false" checked disabled>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-field flex radios">
+                        <p>Outline:</p>
+                        <div class="radio-fields flex">
+                            <div class="radio-field">
+                                <label for="outline-true">True:</label>
+                                <input type="radio" name="outline" id="outline-true" value="true" disabled>
+                            </div>
+                            <div class="radio-field">
+                                <label for="outline-false">False:</label>
+                                <input type="radio" name="outline" id="outline-false" value="false" checked disabled>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-field flex radios hide" id="animate-option">
+                        <p>Animate:</p>
+                        <div class="radio-fields flex">
+                            <div class="radio-field">
+                                <label for="animate-true">True:</label>
+                                <input type="radio" name="animate" id="animate-true" value="true">
+                            </div>
+                            <div class="radio-field">
+                                <label for="animate-false">False:</label>
+                                <input type="radio" name="animate" id="animate-false" value="false" checked>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="code-output" hidden>
+                <h2>JS Code Required</h2>
+                <div class="code-area"></div>
+            </div>
+        </div>
+    </main>
+    <footer>
+        <div class="container footer-content">
+            <a href="https://github.com/daveknights/cre8bit" target="_blank">
+                <img src="/images/cre8bit-logo.png" class="footer-logo" alt="cre8bitJS" height="31" width="31" loading="lazy">
+            </a>
+            <p>cre8bitJS v2.0.0 | &copy; Dave Knights 2023</p>
+            <ul class="footer-links flex">
+                <li><a href="https://github.com/daveknights/cre8bit/releases" target="_blank">Release notes</a></li>
+                <li><a href="https://www.npmjs.com/package/cre8bitjs-minified" target="_blank">Minified version</a></li>
+            </ul>
+        </div>
+    </footer>
+    <script src="/nav.js"></script>
+    <script type="module" src="/playground/script.js"></script>
+</body>
+</html>

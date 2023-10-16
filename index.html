@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cre8bitJS | 8-bit svg library</title>
+    <meta name="description" content="A fun Javascript library for adding 8-bit style retro video game characters to your web page.">
+    <link rel="icon" type="image/png" href="/images/favicon.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Play:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+    <nav class="flex">
+        <div class="container">
+            <a href="/">
+                <img class="logo" src="/images/cre8bit-logo.png" alt="cre8bitjs" height="31" width="31">
+            </a>
+            <img class="menu-icon" src="/images/menu-icon.png" alt="Menu" height="30" width="30">
+            <ul class="nav-links flex">
+                <li><a href="https://github.com/daveknights/cre8bit/blob/main/.github/README.md" target="_blank">Documentation</a></li>
+                <li><a href="/examples">Examples</a></li>
+                <li><a href="/playground">Playground</a></li>
+                <li><a class="btn" href="https://www.npmjs.com/package/cre8bitjs" target="_blank">Install v2.0.0</a></li>
+            </ul>
+        </div>
+    </nav>
+    <header>
+        <div class="container hero-area">
+            <div class="header-text">
+                <h1>Cre8bitJS</h1>
+                <p>(/kree-ayt-bit jay-es/) The lightweight Javascript library for adding 8-bit style retro video game characters to your page.</p>
+            </div>
+            <div class="header-svgs flex"></div>
+        </div>
+    </header>
+    <main>
+        <div class="container intro block-padding">
+            <div class="half-col">
+                <p>An easy to use api, which can be as simple as passing the name of the character you want to add, using all the default options.</p>
+                <p>As the svgs are created dynamically, you can customise them before and after creation. You can pass an object of options when creating
+                    the svg or use helper methods if you want to modify the svg after it's on your page.</p>
+                <p>See the <a href="https://github.com/daveknights/cre8bit/tree/main/.github#readme" target="_blank">documentation</a>
+                    for the available charactes, options and methods</p>
+            </div>
+            <div class="half-col">
+                <div class="ide">
+                    <div class="title-bar flex">
+                        <div class="controls flex">
+                            <span class="dot"></span>
+                            <span class="minimise dot"></span>
+                            <span class="fullscreen dot"></span>
+                        </div>
+                        <p>script.js</p>
+                    </div>
+                    <div class="code-area">
+<pre>
+<code><span class="new">import</span> <span class="key">cre8bit</span> <span class="new">from</span> <span class="string">'cre8bitjs'</span>;</code>
+<code><span class="new">new</span> <span class="method">cre8bit</span>().<span class="method">create</span>(<span class="string">'ghost'</span>);</code>
+<code><span class="new">new</span> <span class="method">cre8bit</span>().<span class="method">create</span>(<span class="string">'ghost'</span>, {
+    <span class="key">size</span>: <span class="number">12</span>,
+    <span class="key">colour</span>: <span class="string">'pink'</span>
+});</code>
+<code><span class="new">const</span> <span class="var">blinky</span> = <span class="new">new</span> <span class="method">cre8bit</span>().<span class="method">create</span>(<span class="string">'ghost'</span>);
+<span class="var">blinky</span>.<span class="method">setSize</span>(<span class="number">10</span>).<span class="method">setColour</span>(<span class="string">'red'</span>);</code></pre>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="colours">
+            <article class="container column block-padding">
+                <h2>Changing colours</h2>
+                <div class="colour-svgs flex">
+                    <div class="mario svg-wrapper column flex">
+                        <p>default</p>
+                    </div>
+                    <div class="luigi svg-wrapper column flex">
+                        <p>colour: 'green'</p>
+                    </div>
+                </div>
+                <p>Each character has one default colour that can be changed, allowing you to create different versions of the same svg.
+                    Depending on the character, this will change the colour of all the svg or part of it.</p>
+            </article>
+        </div>
+        <div class="animating">
+            <article class="container column block-padding">
+                <h2>Animating</h2>
+                <div class="animating-svg svg-wrapper column flex">
+                    <p>animate: true</p>
+                </div>
+                <p>Only some of the characters are eligible for the animate option. If you try to use it on a character than doesn't animate,
+                    the svg will switch between visible and unvisible.</p>
+                <p>There is a stop method, to cancel an animating svg after creation.</p>
+                <p>See the <a href="https://github.com/daveknights/cre8bit/blob/main/.github/README.md#options" target="_blank">docs</a>
+                    for information on which characters you can animate.</p>
+            </article>
+        </div>
+        <div class="reflections">
+            <article class="container column block-padding">
+                <h2>Reflections<span> (Coming soon)</span></h2>
+                <div class="reflection-svg svg-wrapper column flex">
+                    <p>reflection: true</p>
+                </div>
+                <p>Already in development for version 2.1.0, using this option will produce a nice reflection of the svg character
+                    to give you that early mobile and tablet device nostalgia.</p>
+                <p>This is a feature that would be very hard to achieve with CSS alone.</p>
+            </article>
+        </div>
+    </main>
+    <footer>
+        <div class="container footer-content">
+            <a href="https://github.com/daveknights/cre8bit" target="_blank">
+                <img src="/images/cre8bit-logo.png" class="footer-logo" alt="cre8bitJS" height="31" width="31" loading="lazy">
+            </a>
+            <p>cre8bitJS v2.0.0 | &copy; Dave Knights 2023</p>
+            <ul class="footer-links flex">
+                <li><a href="https://github.com/daveknights/cre8bit/releases" target="_blank">Release notes</a></li>
+                <li><a href="https://www.npmjs.com/package/cre8bitjs-minified" target="_blank">Minified version</a></li>
+            </ul>
+        </div>
+    </footer>
+    <script src="/nav.js"></script>
+    <script src="/script.js" type="module"></script>
+</body>
+</html>
