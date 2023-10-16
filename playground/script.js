@@ -1,4 +1,4 @@
-import cre8bit from "/cre8bit.min.js";
+import cre8bit from "../cre8bit.min.js";
 
 const state = {
     character: '',
