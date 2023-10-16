@@ -1,4 +1,4 @@
-import cre8bit from '../cre8bit-reflection.js'
+import cre8bit from './cre8bit-reflection.js'
 
 const getSize = size => {
     switch (true) {
