@@ -62,10 +62,11 @@ nav {
 ul {
     list-style-type: none;
 }
-.nav-links li:not(:has(span)) {
-    padding: 0 17px;
+.nav-links li:not(:has(a.active)) {
+    padding: 0 12px;
 }
-.nav-links li:has(.btn) {
+.nav-links li:has(a.btn) {
+    margin-left: 33px;
     padding: 0;
 }
 .nav-links a {
@@ -263,9 +264,17 @@ footer p {
     .nav-links li + li {
         margin-left: 20px;
     }
-    .active {
+    .active::before,
+    .active::after {
         color: var(--tertiary-colour);
-        padding: 0 5px;
+    }
+    .active::before {
+        content: '[';
+        padding-right: 5px;
+    }
+    .active::after {
+        content: ']';
+        padding-left: 5px;
     }
     header {
         padding-top: 125px;
