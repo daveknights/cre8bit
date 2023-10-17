@@ -207,7 +207,8 @@ article p {
 .colour-svgs,
 .animating-svg,
 .reflection-svg {
-    padding: 30px 0 ;
+    padding: 30px 0;
+    padding-block: 30px;
 }
 .svg-wrapper svg {
     order: 1;
@@ -229,6 +230,32 @@ article p {
 .ufo-wrap {
     background: var(--dark-bg);
     padding: 50px 70px;
+}
+.row {
+    padding-top: 30px;
+    width: 100%;
+}
+.row h3,
+.api li {
+    padding: 5px 10px;
+}
+.row h3 {
+    margin-bottom: 0.5rem;
+}
+.row h3 a {
+    color: initial;
+}
+.characters h3 {
+    background: var(--primary-colour);
+}
+.characters h3 a {
+    color: white;
+}
+.options h3 {
+    background: var(--secondary-colour);
+}
+.methods h3 {
+    background: var(--tertiary-colour);
 }
 footer div {
     align-items: flex-end;
@@ -300,9 +327,13 @@ footer p {
     .header-svgs svg + svg {
         margin-left: 30px;
     }
-    .half-col {
+    .half-col,
+    .third-col-md {
         padding-left: 10px;
         padding-right: 10px;
+        padding-inline: 10px;
+    }
+    .half-col {
         width: 50%;
     }
     .block-padding {
@@ -312,6 +343,9 @@ footer p {
     }
     .colours div + div {
         margin-left: 100px;
+    }
+    .third-col-md {
+        width: 33.333%;
     }
     footer img {
         margin-right: 20px;
@@ -331,9 +365,11 @@ footer p {
     .header-text {
         width: 40%;
     }
-    .half-col {
+    .half-col,
+    .third-col-md {
         padding-left: 30px;
         padding-right: 30px;
+        padding-inline: 30px;
     }
     p {
         font-size: 1.375rem;
@@ -395,6 +431,12 @@ footer p {
     .header-text,
     .half-col:first-child {
         margin-bottom: 30px;
+    }
+    .api .row {
+        flex-direction: column;
+    }
+    .third-col-md + .third-col-md {
+        margin-top: 20px;
     }
     .footer-content,
     .footer-links {
