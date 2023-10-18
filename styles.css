@@ -126,6 +126,7 @@ p + p {
     max-width: 1260px;
     padding-left: 12px;
     padding-right: 12px;
+    padding-inline: 12px;
     width: 100%;
 }
 .block-padding {
@@ -288,6 +289,10 @@ footer p {
     .menu-icon {
         display: none;
     }
+    .nav-links li:has(a.btn) {
+        position: relative;
+        top: 10px;
+    }
     .nav-links li + li {
         margin-left: 20px;
     }
@@ -311,12 +316,16 @@ footer p {
     }
     a.btn {
         border-radius: 10px;
+        display: inline-block;
+        min-width: 147px;
         padding-bottom: 10px;
         padding-top: 10px;
+        padding-block: 10px;
     }
     .container {
         padding-left: 20px;
         padding-right: 20px;
+        padding-inline: 20px;
     }
     .header-text {
         width: 50%;
@@ -361,6 +370,10 @@ footer p {
     .container {
         padding-left: 30px;
         padding-right: 30px;
+        padding-inline: 30px;
+    }
+    a.btn {
+        min-width: 155px;
     }
     .header-text {
         width: 40%;
@@ -377,6 +390,7 @@ footer p {
     .code-area {
         padding-left: 40px;
         padding-right: 40px;
+        padding-inline: 40px;
     }
 }
 @media (min-width: 768px) and (max-width: 959px) {
@@ -406,6 +420,7 @@ footer p {
     .nav-links li:not(:has(.btn)) {
         padding-left: 20px;
         padding-right: 20px;
+        padding-inline: 20px;
     }
     .nav-links li + li {
         border-top: solid 1px var(--primary-colour);
@@ -420,6 +435,7 @@ footer p {
     header {
         padding-left: 12px;
         padding-right: 12px;
+        padding-inline: 12px;
     }
     .hero-area,
     .intro {
