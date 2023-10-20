@@ -1,4 +1,4 @@
-import cre8bit from "../cre8bit-reflection.js";
+import cre8bit from "../cre8bit.min.js";
 
 new cre8bit().create('space invader', {parentClass: 'basic'});
 
