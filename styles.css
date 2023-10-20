@@ -108,7 +108,6 @@ h2 {
 }
 h2 span {
     color: var(--secondary-colour);
-    font-size: 1.5rem;
 }
 p {
     font-size: 1.125rem;
@@ -194,8 +193,8 @@ code {
 .boolean {
     color: var(--code-yellow);
 }
-.colours,
-.reflections {
+.reflections,
+.animating {
     background: var(--light-bg);
 }
 .colours div + div {
@@ -225,7 +224,7 @@ article p {
     padding: 4px 10px;
     text-align: center;
 }
-.animating-svg p {
+.colour-svgs p {
     background: var(--light-bg);
 }
 .ufo-wrap {
