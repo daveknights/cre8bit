@@ -1,4 +1,4 @@
-import cre8bit from './cre8bit-reflection.js'
+import cre8bit from './cre8bit.min.js'
 
 const setVersionAndYear = async () => {
     const res = await fetch('https://api.github.com/repos/daveknights/cre8bit/tags');
