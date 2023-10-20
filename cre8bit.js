@@ -10,6 +10,7 @@ export default class Cre8bit {
     #size = 5;
     #flip = false;
     #outlineWidth = 0;
+    #reflection = false;
 
     #characters = {
         pacman: {
@@ -175,15 +176,22 @@ export default class Cre8bit {
         return document.createElementNS(name, tag);
     }
 
+    #setAttr(elem, values) {
+        for (const [v1, v2] of values) {
+            elem.setAttribute(v1, v2);
+        }
+    }
+
     #makeSVG(svg, charPath) {
         const newGroup = this.#createSvgElement(this.#svgns, 'g');
         const pathPoints = this.#useAnimatePoints === false ? charPath.points : charPath.animatePoints;
+        const strokeW = this.#outlineWidth;
+        const stroke2W = strokeW * 2;
         let newPath = null;
 
-        newGroup.setAttribute('fill', this.#colour);
-        if(this.#outlineWidth === 0.5) {
-            newGroup.setAttribute('stroke', 'black');
-            newGroup.setAttribute('stroke-width', this.#outlineWidth);
+        this.#setAttr(newGroup, [['fill', this.#colour]]);
+        if(strokeW === 0.5) {
+            this.#setAttr(newGroup, [['stroke', 'black'],['stroke-width', strokeW]]);
         }
 
         if (charPath.mask) {
@@ -191,23 +199,14 @@ export default class Cre8bit {
             const newMask = this.#createSvgElement(this.#svgns, 'mask');
             const wholeMask = this.#createSvgElement(this.#svgns, 'rect');
 
-            newMask.setAttribute('id', `${this.#id}-mask`);
-
-            wholeMask.setAttribute('x', 0);
-            wholeMask.setAttribute('y', 0);
-            wholeMask.setAttribute('width', (this.#size * charPath.columns) + (this.#outlineWidth * 2));
-            wholeMask.setAttribute('height', (this.#size * charPath.rows) + (this.#outlineWidth * 2));
-            wholeMask.setAttribute('fill', 'white');
+            this.#setAttr(newMask, [['id', `${this.#id}-mask`]]);
+            this.#setAttr(wholeMask, [['x', 0],['y', 0],['width', (this.#size * charPath.columns) + stroke2W],['height', (this.#size * charPath.rows) + stroke2W],['fill', 'white']]);
 
             newMask.appendChild(wholeMask);
 
             for (const [x,y] of charPath.mask.values()) {
                 const newBlock = this.#createSvgElement(this.#svgns, 'rect');
-                newBlock.setAttribute('x', (x * this.#size) + this.#outlineWidth);
-                newBlock.setAttribute('y', (y * this.#size) + this.#outlineWidth);
-                newBlock.setAttribute('width', this.#size);
-                newBlock.setAttribute('height', this.#size);
-                newBlock.setAttribute('fill', 'black');
+                this.#setAttr(newBlock, [['x', (x * this.#size) + strokeW],['y', (y * this.#size) + strokeW],['width', this.#size],['height', this.#size],['fill', 'black']]);
 
                 newMask.appendChild(newBlock);
             }
@@ -219,22 +218,59 @@ export default class Cre8bit {
 
         for (const points of pathPoints) {
             newPath = this.#createSvgElement(this.#svgns, 'path');
-            newPath.setAttribute('d', `M ${(points[0][0] * this.#size) + this.#outlineWidth} ${(points[0][1] * this.#size) + this.#outlineWidth} ${this.#createPath(points)}`);
+            this.#setAttr(newPath, [['d', `M ${(points[0][0] * this.#size) + strokeW} ${(points[0][1] * this.#size) + strokeW} ${this.#createPath(points)}`]]);
             newGroup.appendChild(newPath);
         }
 
-        charPath.mask && newPath.setAttribute('mask', `url(#${this.#id}-mask)`);
+        charPath.mask && this.#setAttr(newPath, [['mask', `url(#${this.#id}-mask)`]]);
 
         if (charPath.extraPoints) {
             for (const [colour, pointsArrays] of Object.entries(charPath.extraPoints)) {
                 for (const points of pointsArrays) {
                     const extraPath = this.#createSvgElement(this.#svgns, 'path');
-                    extraPath.setAttribute('d', `M ${(points[0][0] * this.#size) + this.#outlineWidth} ${(points[0][1] * this.#size) + this.#outlineWidth} ${this.#createPath(points)}`);
-                    extraPath.setAttribute('fill', colour);
+                    this.#setAttr(extraPath, [['d', `M ${(points[0][0] * this.#size) + strokeW} ${(points[0][1] * this.#size) + strokeW} ${this.#createPath(points)}`],['fill', colour]]);
 
                     newGroup.appendChild(extraPath);
                 }
             }
+        }
+
+        if (this.#reflection) {
+            const charCopy = newGroup.cloneNode(true);
+            const rNewDefs = this.#createSvgElement(this.#svgns, 'defs');
+            const rNewMask = this.#createSvgElement(this.#svgns, 'mask');
+            const rRect = this.#createSvgElement(this.#svgns, 'rect');
+            const rlinearGrad = this.#createSvgElement(this.#svgns, 'linearGradient');
+            const rStopStart = this.#createSvgElement(this.#svgns, 'stop');
+            const rStopEnd = this.#createSvgElement(this.#svgns, 'stop');
+
+            this.#setAttr(rNewMask, [['id', `${this.#id}-ref-mask`]]);
+            this.#setAttr(rRect, [['x', 0],['y', 0],['width', (this.#size * charPath.columns) + stroke2W],['height', (this.#size * charPath.rows) + stroke2W],['fill', `url(#${this.#id}-grad-mask)`]]);
+            this.#setAttr(rlinearGrad, [['id', `${this.#id}-grad-mask`],['x1', '0'],['x2', '0'],['y1', '0'],['y2', '1']]);
+            this.#setAttr(rStopStart, [['offset', '0'],['stop-color', 'white']]);
+            this.#setAttr(rStopEnd, [['offset', '1'],['stop-color', 'white']]);
+
+            let translateVal = `0,-${((this.#characterPath().rows * this.#size) + stroke2W) * 2}`;
+            let scaleVal = '1,-1';
+            let startVal = '0';
+            let endVal = '0.3';
+
+            if (this.#flip) {
+                translateVal = `-${((this.#characterPath().columns * this.#size) + stroke2W)},-${((this.#characterPath().rows * this.#size) + stroke2W) * 2}`;
+                scaleVal = '-1,-1';
+            }
+
+            this.#setAttr(rStopStart, [['stop-opacity', startVal]]);
+            this.#setAttr(rStopEnd, [['stop-opacity', endVal]]);
+            this.#setAttr(charCopy, [['transform', `scale(${scaleVal}) translate(${translateVal})`],['mask', `url(#${this.#id}-ref-mask)`]]);
+
+            rNewMask.appendChild(rRect);
+            rlinearGrad.appendChild(rStopStart);
+            rlinearGrad.appendChild(rStopEnd);
+            rNewDefs.appendChild(rlinearGrad);
+            rNewDefs.appendChild(rNewMask);
+            svg.appendChild(rNewDefs);
+            svg.appendChild(charCopy);
         }
 
         return svg;
@@ -243,9 +279,10 @@ export default class Cre8bit {
     #editSVG() {
         const charPath = this.#characterPath();
         const svgEdit = document.getElementById(this.#id);
+        const editMultiplyer = this.#reflection ? 2 : 1;
         svgEdit.innerHTML = '';
         svgEdit.setAttributeNS(null, 'width', `${(charPath.columns * this.#size) + (this.#outlineWidth * 2)}`);
-        svgEdit.setAttributeNS(null, 'height', `${(charPath.rows * this.#size) + (this.#outlineWidth * 2)}`);
+        svgEdit.setAttributeNS(null, 'height', `${((charPath.rows * this.#size) + (this.#outlineWidth * 2)) * editMultiplyer}`);
 
         this.#makeSVG(svgEdit, charPath);
 
@@ -309,9 +346,13 @@ export default class Cre8bit {
      */
     setFlip(shouldFlip) {
         if (shouldFlip) {
-            document.getElementById(this.#id).querySelector('g').setAttribute('transform', `scale(-1, 1) translate(-${(this.#characterPath().columns * this.#size) + (this.#outlineWidth * 2)}, 0)`);
+            this.#setAttr(document.getElementById(this.#id).querySelector('g'), [['transform', `scale(-1, 1) translate(-${(this.#characterPath().columns * this.#size) + (this.#outlineWidth * 2)}, 0)`]]);
         } else {
             document.getElementById(this.#id).querySelector('g').removeAttribute('transform');
+        }
+
+        if (this.#reflection) {
+            this.#setAttr(document.getElementById(this.#id).querySelector('g:last-of-type'), [['transform', `scale(-1,-1) translate(-${(this.#characterPath().columns * this.#size) + (this.#outlineWidth * 2)}, -${((this.#characterPath().rows * this.#size) + (this.#outlineWidth * 2)) * 2})`]]);
         }
 
         this.#flip = shouldFlip;
@@ -321,7 +362,7 @@ export default class Cre8bit {
 
     /**
      * @param {string} character - character
-     * @param {object} [options] - Optional string colour, number size, boolean flip, boolean animate, string parentClass, string wrapperClass, boolean outline
+     * @param {object} [options] - Optional string colour, number size, boolean flip, boolean animate, boolean relection, string parentClass, string wrapperClass, boolean outline
      */
     create(character, options) {
         this.#characterName = character.toLowerCase();
@@ -336,14 +377,16 @@ export default class Cre8bit {
         svgElem.classList.add('cre8bit', this.#characterName.replace(' ', '-'));
 
         if (options) {
+            options.flip && (this.#flip = options.flip);
             options.parentClass && (this.#parentClass = options.parentClass);
             options.colour && this.setColour(options.colour, true);
             options.size && this.setSize(options.size, true);
             options.outline && (this.#outlineWidth = 0.5);
+            options.reflection && (this.#reflection = true);
         }
-
+        const multiplyer = options && options.reflection ? 2 : 1;
         svgElem.setAttributeNS(null, 'width', `${(newCharPath.columns * this.#size) + (this.#outlineWidth * 2)}`);
-        svgElem.setAttributeNS(null, 'height', `${(newCharPath.rows * this.#size) + (this.#outlineWidth * 2)}`);
+        svgElem.setAttributeNS(null, 'height', `${((newCharPath.rows * this.#size) + (this.#outlineWidth * 2)) * multiplyer}`);
 
         shape = this.#makeSVG(svgElem, newCharPath);
 
