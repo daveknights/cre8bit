@@ -55,6 +55,8 @@ Optional object passed as the second argument to the **create** method.
 
 `(boolean) animate` - Only available currently with **space invader**, **pacman** & **ghost**.
 
+`(boolean) reflection` - The default is **false**.
+
 `(string) parentClass` - Use this to add the svg to an existing DOM element by providing the class name. If none is provided they are added to the document body.
 
 `(string) wrapperClass` - Use this to wrap the svg in a div with the class name provided.
@@ -70,9 +72,9 @@ Optional object passed as the second argument to the **create** method.
 
 `stop()` - Stop a currently animating character.
 ## In action
-See some [examples](https://daveknights.github.io/cre8bit-examples/) of the library in use.
+See some [examples](https://daveknights.github.io/cre8bit/examples/) of the library in use.
 
-Try out the library in the [Cre8bitJS Playground](https://daveknights.github.io/cre8bit-playground/).
+Try out the library in the [Cre8bitJS Playground](https://daveknights.github.io/cre8bit/playground/).
 
 _* At the time of writing, a minifier that could handle private properties & methods could not be found,
 so a [custom node minifying script](https://gist.github.com/daveknights/7e6124184c5d49f8498d6fa91fb21181) was created, shaving nearly 40% (5kb) off the unminified version._
