@@ -232,14 +232,16 @@ article p {
     padding: 50px 70px;
 }
 .row {
-    padding-top: 30px;
     width: 100%;
 }
 .row h3,
 .api li {
     padding: 5px 10px;
 }
-.row h3 {
+.api-lists {
+    padding-top: 30px;
+}
+.api-lists h3 {
     margin-bottom: 0.5rem;
 }
 .row h3 a {
