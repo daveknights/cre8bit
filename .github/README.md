@@ -90,3 +90,5 @@ See some [examples](https://daveknights.github.io/cre8bit/examples/) of the libr
 
 Try out the library in the [Cre8bitJS Playground](https://daveknights.github.io/cre8bit/playground/).
 
+## Browser support
+Works in latest version of all major desktop browsers and latest version of major Android & IOS browsers.
