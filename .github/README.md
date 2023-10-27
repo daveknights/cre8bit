@@ -24,7 +24,7 @@ import cre8bit from "./cre8bit.js"; // "./cre8bit.min.js"; (For the minified ver
 And set your own javascript file to `type="module"`.
 
 _* At the time of writing, a minifier that could handle private properties & methods could not be found,
-so a [custom node minifying script](https://gist.github.com/daveknights/7e6124184c5d49f8498d6fa91fb21181) was created, shaving nearly 40% (5kb) off the unminified version._
+so a [custom node minifying script](https://gist.github.com/daveknights/7e6124184c5d49f8498d6fa91fb21181) was created, shaving nearly 40% off the unminified version._
 ## Usage
 ```javascript
 // The most basic usage of the library
@@ -58,6 +58,8 @@ Pass one as the first argument to the **create** method.
 - `'mario'`
 - `'mushroom'`
 - `'kirby'`
+
+Look out for new characters.
 ### Options
 Optional object passed as the second argument to the **create** method.
 

@@ -44,6 +44,8 @@ Pass one as the first argument to the **create** method.
 - `'mario'`
 - `'mushroom'`
 - `'kirby'`
+
+Look out for new characters.
 ### Options
 Optional object passed as the second argument to the **create** method.
 
@@ -80,4 +82,4 @@ Try out the library in the [Cre8bitJS Playground](https://daveknights.github.io/
 Works in latest version of all major desktop browsers and latest version of major Android & IOS browsers.
 
 _* At the time of writing, a minifier that could handle private properties & methods could not be found,
-so a [custom node minifying script](https://gist.github.com/daveknights/7e6124184c5d49f8498d6fa91fb21181) was created, shaving nearly 40% (5kb) off the unminified version._
+so a [custom node minifying script](https://gist.github.com/daveknights/7e6124184c5d49f8498d6fa91fb21181) was created, shaving nearly 40% off the unminified version._
