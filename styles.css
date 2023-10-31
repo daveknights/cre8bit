@@ -394,6 +394,11 @@ footer p {
         padding-inline: 40px;
     }
 }
+@media (min-width: 1000px) {
+    .home header {
+        min-height: 471px;
+    }
+}
 @media (min-width: 768px) and (max-width: 959px) {
     .nav-links a {
         font-size: 1.125rem;
@@ -468,5 +473,10 @@ footer p {
     }
     .footer-links li +li {
         margin-top: 1rem;
+    }
+}
+@media (max-width: 375px) {
+    .home header {
+        min-height: 461px;
     }
 }
