@@ -1,14 +1,6 @@
 import cre8bit from './cre8bit.min.js'
 
-const getSize = size => {
-    switch (true) {
-        case window.innerWidth > 1099:
-            return size * 2
-        default:
-            return size;
-    }
-
-}
+const getSize = size => window.innerWidth > 999 ? size * 2 : size;
 
 window.onload = () => {
     // Header
