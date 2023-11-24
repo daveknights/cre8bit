@@ -55,6 +55,7 @@ Pass one as the first argument to the **create** method.
 - `'pacman'`
 - `'ghost'`
 - `'poke ball'`
+- `'pikachu'`
 - `'mario'`
 - `'mushroom'`
 - `'kirby'`
