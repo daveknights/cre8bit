@@ -15,6 +15,7 @@ const specs = {
     'pacman': {xs: 20, sm: 22, lg: 34, col: '#ffff00', canAnimate: true},
     'ghost': {xs: 18, sm: 22, lg: 30, col: '#00ffff', canAnimate: true},
     'poke ball': {xs: 19, sm: 22, lg: 34, col: '#ff0000', canAnimate: false},
+    'pikachu': {xs: 12, sm: 16, lg: 22, col: '#ffff00', canAnimate: false},
     'mario': {xs: 16, sm: 20, lg: 28, col: '#ff0000', canAnimate: false},
     'mushroom': {xs: 18, sm: 22, lg: 30, col: '#ff0000', canAnimate: false},
     'kirby': {xs: 18, sm: 22, lg: 30, col: '#ffc0cb', canAnimate: false}
