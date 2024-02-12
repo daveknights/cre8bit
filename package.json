@@ -1,6 +1,6 @@
 {
   "name": "cre8bitjs",
-  "version": "2.2.0",
+  "version": "2.3.0",
   "description": "Add svg retro video game characters to a web page",
   "main": "cre8bit.js",
   "scripts": {
