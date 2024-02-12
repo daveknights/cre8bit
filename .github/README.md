@@ -80,6 +80,8 @@ Optional object passed as the second argument to the **create** method.
 
 `(boolean) outline` - Add an outline to all paths of a character. Useful if there is not enough contrast between the character colour and your page background, or the character (parts of the character) are the same colour as your page.
 
+`(array) responsive` - Pass an array of exactly 3 numbers for the size you want to display the character on mobile, tablet(768px) and desktop(1000px). E.g: `[6, 8, 12]`. All 3 values don't need to be different if, for example, you want to use the same size at table and desktop but you do still need to pass 3 values. E.g: `[6, 12, 12]`.
+
 ### Helper methods
 `setColour(string)` - Any valid CSS colour name or hex value e.g: `red` or `#c8b`. Characters have a default colour.
 
