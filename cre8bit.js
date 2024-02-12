@@ -11,6 +11,7 @@ export default class Cre8bit {
     #flip = false;
     #outlineWidth = 0;
     #reflection = false;
+    #responsive = false;
 
     #characters = {
         pacman: {
@@ -351,6 +352,8 @@ export default class Cre8bit {
      * @param {boolean} [option]
      */
     setSize(size, option) {
+        if (this.#responsive) return;
+
         if (typeof size === 'number') {
             if (size > 71) {
                 console.log(`Max size is 70, ${size} was provided`);
@@ -407,7 +410,32 @@ export default class Cre8bit {
             options.size && this.setSize(options.size, true);
             options.outline && (this.#outlineWidth = 0.5);
             options.reflection && (this.#reflection = true);
+
+            if (options.responsive) {
+                let isNumber = true;
+                const responsiveSizes = options.responsive;
+
+                for (const size of responsiveSizes) {
+                    if (typeof size !== 'number' || (typeof size === 'number' && size < 1)) {
+                        isNumber = false;
+                        console.log('Please provide an array of 3 numbers, even if 2 are the same');
+                    }
+                }
+
+                if (isNumber) {
+                    this.#responsive = true;
+
+                    if (window.innerWidth < 768) {
+                        this.#size = responsiveSizes[0];
+                    } else if (window.innerWidth < 999) {
+                        this.#size = responsiveSizes[1];
+                    } else {
+                        this.#size = responsiveSizes[2];
+                    }
+                }
+            }
         }
+
         const multiplyer = options && options.reflection ? 2 : 1;
         svgElem.setAttributeNS(null, 'width', `${(newCharPath.columns * this.#size) + (this.#outlineWidth * 2)}`);
         svgElem.setAttributeNS(null, 'height', `${((newCharPath.rows * this.#size) + (this.#outlineWidth * 2)) * multiplyer}`);
