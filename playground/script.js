@@ -50,11 +50,11 @@ const showCode = () => {
 
     const codeText = document.createElement('code');
     let codeString = `${codeDefaultText}<span class="string character-name">'${state.character}'</span>, {
-    <span class="key">colour</span>: <span class="string">'${state.colour}'</span>,
-    <span class="key">size</span>: <span class="number">${state.size}</span>${state.flip ? ',' : ''}`;
-    codeString += state.flip ? `<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="key">flip</span>: <span class="boolean">${state.flip}</span>` : '';codeString += state.outline ? ',' : '';
-    codeString += state.outline ? `<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="key">outline</span>: <span class="boolean">${state.outline}</span>` : '';codeString += state.animate ? ',' : '';
-    codeString += state.animate ? `<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="key">animate</span>: <span class="boolean">${state.animate}</span>` : '';
+    <span class="key">colour</span>: <span class="string character-colour">'${state.colour}'</span>,
+    <span class="key">size</span>: <span class="number character-size">${state.size}</span>${state.flip ? ',' : ''}`;
+    codeString += state.flip ? `<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="key">flip</span>: <span class="boolean character-flip">${state.flip}</span>` : '';codeString += state.outline ? ',' : '';
+    codeString += state.outline ? `<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="key">outline</span>: <span class="boolean character-outline">${state.outline}</span>` : '';codeString += state.animate ? ',' : '';
+    codeString += state.animate ? `<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="key">animate</span>: <span class="boolean character-animate">${state.animate}</span>` : '';
     codeString += '<br>});</pre>';
     codeText.innerHTML = codeString;
 
